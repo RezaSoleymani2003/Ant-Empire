@@ -1,7 +1,7 @@
 CXX = g++
 TARGET = main.exe
 
-SRC = main.cpp ant.cpp
+SRC = main.cpp ant.cpp pheromone.cpp
 
 OBJ = $(SRC:.cpp=.o)
 
