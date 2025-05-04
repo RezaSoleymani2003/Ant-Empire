@@ -1,22 +1,28 @@
-# Main Makefile - Controls the build process
 CXX = g++
-TARGET = sfml-app.exe
-SRC = main.cpp
+TARGET = main.exe
+
+SRC = main.cpp ant.cpp
+
 OBJ = $(SRC:.cpp=.o)
 
-# Paths (Windows-friendly)
 SFML_PATH = "C:/Program Files/SFML-3.0.0"
 INCLUDES = -I$(SFML_PATH)/include
 LIBS = -L$(SFML_PATH)/lib -lsfml-graphics -lsfml-window -lsfml-system
 
-# Include sub-makefiles
-include compile.mk
-include link.mk
-include run.mk
+$(TARGET): $(OBJ)
+	$(CXX) $(OBJ) -o $(TARGET) $(LIBS)
+
+%.o: %.cpp
+	$(CXX) -c $< -o $@ $(INCLUDES)
+
+clean:
+	-rm *.exe
+	-rm  *.o 
+
+
+run: $(TARGET)
+	./$(TARGET)
 
 .PHONY: all clean run
 
 all: $(TARGET)
-
-clean:
-	del /Q $(TARGET) *.o 2>nul || true
